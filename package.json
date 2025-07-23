@@ -1,0 +1,28 @@
+{
+  "name": "spherepay-website",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "dev": "esbuild $(find src -name '*.js') --bundle --minify --outdir=dist --watch",
+    "build": "esbuild './src/**/*' --bundle --minify --outdir=dist"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.5"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MaxChechel/SpherePay-website.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MaxChechel/SpherePay-website/issues"
+  },
+  "homepage": "https://github.com/MaxChechel/SpherePay-website#readme"
+}
