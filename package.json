@@ -12,7 +12,8 @@
     "esbuild": "^0.21.5"
   },
   "dependencies": {
-    "gsap": "^3.13.0"
+    "gsap": "^3.13.0",
+    "three": "^0.178.0"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,3 @@
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export function featuresCards() {
@@ -8,10 +6,10 @@ export function featuresCards() {
   cards.forEach((card, index) => {
     const tl = gsap.timeline({ paused: true });
 
-    // Задержка для четных карточек на десктопе
-    const delay = window.innerWidth >= 768 && index % 2 === 1 ? 0.3 : 0;
+    // Delay for stagger effect on larger screens for odd indexed cards
+    const delay = window.innerWidth >= 768 && index % 2 === 1 ? 0.5 : 0;
 
-    // Общая анимация заголовка (staggered)
+    // Shared animation for all cards headers
     tl.fromTo(
       card.querySelectorAll(".home_features_item_content > *"),
       { opacity: 0, y: 30 },
@@ -24,7 +22,7 @@ export function featuresCards() {
       }
     );
 
-    // Индивидуальные анимации по индексу
+    // Individual animations for each card based on index
     switch (index) {
       case 0: // Developer Toolkit
         tl.to(
@@ -89,7 +87,7 @@ export function featuresCards() {
         break;
     }
 
-    // ScrollTrigger для каждой карточки
+    // ScrollTrigger for each card
     ScrollTrigger.create({
       trigger: card,
       start: "top 70%",

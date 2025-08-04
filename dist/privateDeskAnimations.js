@@ -1,0 +1,1 @@
+(()=>{var t=gsap.timeline();t.to(".private_graphic_phone",{y:0,opacity:1,duration:.6},.4).to(".private_graphic_chat_1",{y:0,opacity:1,duration:.6},"<80%").to(".private_graphic_chat_2",{y:0,opacity:1,duration:.6},"<80%");})();

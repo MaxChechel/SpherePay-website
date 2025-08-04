@@ -1,12 +1,11 @@
 import { gsap } from "gsap";
 
-// Единственная функция для SpherePaytypewriter
 export function initTypewriter(
   selector = "[data-typewriter]",
   customPhrases = null,
   options = {}
 ) {
-  // Фразы по умолчанию
+  // Default phrases
   const defaultPhrases = [
     " money should",
     " your business",
@@ -14,10 +13,8 @@ export function initTypewriter(
     " opportunity",
   ];
 
-  // Используем переданные фразы или дефолтные
   const phrases = customPhrases || defaultPhrases;
 
-  // Настройки по умолчанию
   const settings = {
     typeSpeed: 0.08,
     deleteSpeed: 0.05,
@@ -27,31 +24,30 @@ export function initTypewriter(
     ...options,
   };
 
-  // Находим элементы
+  // Find elements
   const elements = document.querySelectorAll(selector);
   const instances = [];
 
   elements.forEach((element) => {
-    // Проверяем, не инициализован ли уже этот элемент
+    // Check if this element is already initialized
     if (element.dataset.typewriterInitialized) {
       return;
     }
 
-    // Отмечаем элемент как инициализированный
+    // Mark element as initialized
     element.dataset.typewriterInitialized = "true";
 
-    // Состояние анимации для каждого элемента
+    // Animation state for each element
     let currentPhraseIndex = 0;
     let isAnimating = false;
     let textSpan, cursorSpan, cursorAnimation;
 
-    // Инициализация DOM элементов
     function init() {
-      // Сохраняем и очищаем существующий контент
+      // Save and clear existing content
       const existingText = element.textContent.trim();
       element.innerHTML = "";
 
-      // Создаем spans для текста и курсора
+      // Create spans for text and cursor
       textSpan = document.createElement("span");
       textSpan.className = "typewriter-text";
 
@@ -62,7 +58,7 @@ export function initTypewriter(
       element.appendChild(textSpan);
       element.appendChild(cursorSpan);
 
-      // Устанавливаем начальный пробел или существующий текст
+      // Set initial space or existing text
       if (existingText) {
         textSpan.textContent = existingText.startsWith(" ")
           ? existingText
@@ -71,7 +67,7 @@ export function initTypewriter(
         textSpan.textContent = " ";
       }
 
-      // Анимация мигания курсора
+      // Cursor blinking animation
       cursorAnimation = gsap.to(cursorSpan, {
         opacity: 0,
         duration: 0.6,
@@ -83,18 +79,18 @@ export function initTypewriter(
       startAnimation();
     }
 
-    // Начало анимации
+    // Start animation
     function startAnimation() {
       if (isAnimating) return;
       typePhrase(phrases[currentPhraseIndex]);
     }
 
-    // Анимация печати фразы
+    // Phrase typing animation
     function typePhrase(phrase) {
       isAnimating = true;
       const timeline = gsap.timeline();
 
-      // Печатаем символы начиная с позиции 1 (сохраняем пробел)
+      // Type characters starting from position 1 (preserve space)
       for (let i = 1; i <= phrase.length; i++) {
         timeline.to(textSpan, {
           duration: settings.typeSpeed,
@@ -104,13 +100,13 @@ export function initTypewriter(
         });
       }
 
-      // Пауза после завершения печати
+      // Pause after typing completion
       timeline.to({}, { duration: settings.pauseTime });
 
-      // Удаляем символы (кроме последней фразы, если loop отключен)
+      // Delete characters (except for last phrase if loop is disabled)
       const isLastPhrase = currentPhraseIndex === phrases.length - 1;
       if (settings.loop || !isLastPhrase) {
-        // Удаляем символы до пробела (не включая пробел)
+        // Delete characters down to space (not including space)
         for (let i = phrase.length; i > 1; i--) {
           timeline.to(textSpan, {
             duration: settings.deleteSpeed,
@@ -120,25 +116,25 @@ export function initTypewriter(
           });
         }
 
-        // Переходим к следующей фразе
+        // Move to next phrase
         timeline.call(() => {
           nextPhrase();
         });
       } else {
-        // Останавливаем анимацию на последней фразе
+        // Stop animation on last phrase
         timeline.call(() => {
           isAnimating = false;
         });
       }
     }
 
-    // Переход к следующей фразе
+    // Move to next phrase
     function nextPhrase() {
       currentPhraseIndex = (currentPhraseIndex + 1) % phrases.length;
       typePhrase(phrases[currentPhraseIndex]);
     }
 
-    // Методы управления
+    // Control methods
     function stop() {
       isAnimating = false;
       gsap.killTweensOf([textSpan]);
@@ -154,10 +150,10 @@ export function initTypewriter(
       element.dataset.typewriterInitialized = "false";
     }
 
-    // Инициализируем
+    // Initialize
     init();
 
-    // Добавляем экземпляр в массив
+    // Add instance to array
     instances.push({
       element,
       stop,
@@ -169,10 +165,5 @@ export function initTypewriter(
 
   return instances;
 }
-
-// УБИРАЕМ автоинициализацию - теперь она будет только в homeAnimations.js
-// document.addEventListener("DOMContentLoaded", () => {
-//   initTypewriter();
-// });
 
 export default initTypewriter;
