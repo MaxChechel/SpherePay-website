@@ -67,22 +67,22 @@ export function featuresCards() {
           .to(
             card.querySelector(".home_features_ramp_img"),
             { opacity: 0, duration: 0.6 },
-            1.8
+            2
           )
           .to(
             card.querySelector(".home_features_ramp_img_abs"),
             { opacity: 1, duration: 0.6 },
-            1.8
+            2
           )
           .to(
             card.querySelector(".home_features_ramp_img"),
             { opacity: 1, duration: 0.6 },
-            3
+            3.5
           )
           .to(
             card.querySelector(".home_features_ramp_img_abs"),
             { opacity: 0, duration: 0.6 },
-            3
+            3.5
           );
         break;
     }
